@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://cju0r28qnn336"]
+
+[ext_resource type="Script" path="res://Scene/SpikeToCursor.gd" id="1_o7a64"]
+
+[node name="SpikeToCursor" type="Node2D" node_paths=PackedStringArray("host")]
+script = ExtResource("1_o7a64")
+host = NodePath("")

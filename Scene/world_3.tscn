@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://jwl8bvrfhaa"]
+
+[ext_resource type="PackedScene" uid="uid://7gqwuf8ot678" path="res://Scene/Tool/switch_scene.tscn" id="1_u2o3e"]
+
+[node name="World3" type="Node2D"]
+
+[node name="SwitchScene" parent="." instance=ExtResource("1_u2o3e")]

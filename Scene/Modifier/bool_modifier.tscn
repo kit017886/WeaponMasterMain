@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://bidyi8d5cpush"]
+
+[ext_resource type="PackedScene" uid="uid://cjhi8046g0u41" path="res://Scene/Modifier/modifier_button.tscn" id="1_x1elq"]
+
+[node name="BoolModifier" type="HBoxContainer"]
+
+[node name="Label" type="Label" parent="."]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "dddd"
+horizontal_alignment = 1
+
+[node name="Value" type="CheckBox" parent="."]
+layout_mode = 2
+
+[node name="ModifierButton" parent="." instance=ExtResource("1_x1elq")]
+layout_mode = 2

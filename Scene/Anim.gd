@@ -1,0 +1,2 @@
+extends UpdateComponent
+class_name Anim

@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://c1atbl0uskvhc"]
+
+[ext_resource type="Script" path="res://Scene/Component/player/Player8DirMovement.gd" id="1_gvxj7"]
+
+[node name="Player8DirMovement" type="Node2D"]
+position = Vector2(212, 123)
+script = ExtResource("1_gvxj7")
+max_speed = 800

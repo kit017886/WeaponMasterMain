@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://kwrxtoqdwgyy"]
+
+[ext_resource type="Texture2D" uid="uid://b8f1pdq2s0oc4" path="res://Diamond icon(big).png" id="1_n0q2n"]
+[ext_resource type="PackedScene" uid="uid://dhssf3o322gyh" path="res://Scene/Components.tscn" id="2_vp6j3"]
+[ext_resource type="Script" path="res://Scene/Move_n_Slide.gd" id="3_qgkbc"]
+[ext_resource type="Script" path="res://Scene/QueueFreeAfterSeconds.gd" id="4_mm86p"]
+[ext_resource type="Script" path="res://Scene/NormalAttack.gd" id="5_ful0j"]
+
+[node name="Bullet" type="CharacterBody2D"]
+position = Vector2(0, -4)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = 1.5708
+scale = Vector2(3, 3)
+texture = ExtResource("1_n0q2n")
+
+[node name="HitBox" type="Area2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HitBox"]
+polygon = PackedVector2Array(21, -11, 12, -21, 0, -21, -19, -2, 0, 18, 12, 18, 21, 9)
+
+[node name="Components" parent="." node_paths=PackedStringArray("host") instance=ExtResource("2_vp6j3")]
+host = NodePath("..")
+
+[node name="MoveNSlide" type="Node2D" parent="Components/CurrentStates" index="0"]
+script = ExtResource("3_qgkbc")
+
+[node name="QueueFreeAfterSeconds" type="Node2D" parent="Components/CurrentStates" index="1"]
+script = ExtResource("4_mm86p")
+
+[node name="NormalAttack" type="Node2D" parent="Components/CurrentStates" index="2"]
+script = ExtResource("5_ful0j")
+atk = 1
+knock_back_power = 1000
+
+[editable path="Components"]

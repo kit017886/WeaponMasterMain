@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://p6nisji03fr5"]
+
+[ext_resource type="PackedScene" uid="uid://dhssf3o322gyh" path="res://Scene/Components.tscn" id="1_ebc6i"]
+[ext_resource type="Script" path="res://GetWeapon.gd" id="2_bansj"]
+
+[node name="WeaponReward" type="Button"]
+offset_right = 148.0
+offset_bottom = 72.0
+text = "獲得武器"
+
+[node name="Components" parent="." instance=ExtResource("1_ebc6i")]
+
+[node name="GetWeapon" type="Node2D" parent="Components/CurrentStates" index="0"]
+script = ExtResource("2_bansj")
+weapon_data = null
+
+[connection signal="pressed" from="." to="Components/CurrentStates/GetWeapon" method="_on_weapon_reward_pressed"]
+
+[editable path="Components"]

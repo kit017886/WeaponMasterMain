@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://rnm7clrueg8s"]
+
+[ext_resource type="PackedScene" uid="uid://dhssf3o322gyh" path="res://Scene/Components.tscn" id="1_e2bjd"]
+[ext_resource type="Script" path="res://Scene/TestUpdateComponent.gd" id="2_e2yta"]
+
+[node name="Test" type="Node2D"]
+
+[node name="Components" parent="." node_paths=PackedStringArray("host") instance=ExtResource("1_e2bjd")]
+host = NodePath("..")
+
+[node name="TestUpdateComponent" type="Node2D" parent="Components/CurrentStates" index="0"]
+script = ExtResource("2_e2yta")
+update_on_condition_name = "print_aaa"
+
+[node name="Timer" type="Timer" parent="Components/CurrentStates/TestUpdateComponent"]
+autostart = true
+
+[connection signal="timeout" from="Components/CurrentStates/TestUpdateComponent/Timer" to="Components/CurrentStates/TestUpdateComponent" method="_on_timer_timeout"]
+
+[editable path="Components"]

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://7gqwuf8ot678"]
+
+[ext_resource type="Script" path="res://Scene/SwitchScene.gd" id="1_jwimh"]
+
+[node name="SwitchScene" type="Node"]
+script = ExtResource("1_jwimh")

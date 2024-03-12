@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://dmpdg72yx4r61"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_e01ja"]
+radius = 19.0
+height = 84.0
+
+[node name="HitBox" type="Area2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(2, 18)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_e01ja")

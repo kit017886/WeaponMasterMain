@@ -1,0 +1,225 @@
+[gd_scene load_steps=32 format=3 uid="uid://dg16qemgsv2h6"]
+
+[ext_resource type="PackedScene" uid="uid://pg702s1nftrh" path="res://Scene/animated_sprite_2d(4_dir).tscn" id="1_nhkli"]
+[ext_resource type="PackedScene" uid="uid://dmpdg72yx4r61" path="res://Scene/Tscn/hit_box.tscn" id="2_aih1y"]
+[ext_resource type="Script" path="res://Scene/OverlapCollision.gd" id="2_crmtk"]
+[ext_resource type="PackedScene" uid="uid://cal60ecjjq4m0" path="res://Scene/Tscn/hurt_box.tscn" id="3_bvyv2"]
+[ext_resource type="Script" path="res://Scene/Components.gd" id="3_dp2v8"]
+[ext_resource type="PackedScene" uid="uid://q6mplc0tqhbm" path="res://Scene/Component/move_n_slide.tscn" id="4_8qvim"]
+[ext_resource type="Script" path="res://Scene/Tools.gd" id="5_75ld7"]
+[ext_resource type="Script" path="res://Scene/CurrentStates.gd" id="5_xakui"]
+[ext_resource type="Script" path="res://UpdateTopDown4DirAnim.gd" id="6_7y5tb"]
+[ext_resource type="Script" path="res://Scene/HealthSystem.gd" id="6_10bkb"]
+[ext_resource type="Script" path="res://Scene/EnemyFollow.gd" id="9_3bbv0"]
+[ext_resource type="Script" path="res://Scene/IdleMove.gd" id="11_nxjdn"]
+[ext_resource type="Script" path="res://Scene/NearPlayerNFollow.gd" id="12_fpnfr"]
+[ext_resource type="Script" path="res://Scene/KnockBackPlayer.gd" id="12_nx3br"]
+[ext_resource type="Script" path="res://Scene/BeNormalHurt.gd" id="13_2u0nm"]
+[ext_resource type="Script" path="res://Scene/BeKnockBack.gd" id="14_fg5rg"]
+[ext_resource type="Script" path="res://Scene/ConnectToHpDisplay.gd" id="15_5q4vc"]
+[ext_resource type="Script" path="res://Scene/ZeroHpToDefeat.gd" id="16_6bldu"]
+[ext_resource type="PackedScene" uid="uid://dhssf3o322gyh" path="res://Scene/Components.tscn" id="17_512so"]
+[ext_resource type="Script" path="res://Scene/BeAttack.gd" id="17_y57nv"]
+[ext_resource type="Script" path="res://Scene/StatusBar.gd" id="18_twi7e"]
+[ext_resource type="Script" path="res://Scene/PlayPlayer.gd" id="19_grk0r"]
+[ext_resource type="Script" path="res://Scene/BeHurtAnim.gd" id="20_s38uq"]
+[ext_resource type="Script" path="res://Scene/ImmuneAfterAttack.gd" id="22_mhtjs"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fvy41"]
+radius = 22.0
+height = 68.0
+
+[sub_resource type="Shader" id="Shader_nh0mb"]
+code = "shader_type canvas_item;
+
+uniform bool switich = false;
+uniform vec3 unifomr_color : source_color;
+
+void vertex(){
+}
+
+void fragment() {
+	if (switich == true) {
+		vec4 texture_color = texture(TEXTURE, UV);
+		COLOR = vec4(unifomr_color, texture_color.a);
+		}
+}
+
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3524u"]
+resource_local_to_scene = true
+shader = SubResource("Shader_nh0mb")
+shader_parameter/switich = false
+shader_parameter/unifomr_color = Color(1, 1, 1, 1)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wp8qe"]
+radius = 18.0
+
+[sub_resource type="Animation" id="Animation_l4rhc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D(4dir):material:shader_parameter/switich")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_bl0es"]
+resource_name = "hurt_blink"
+length = 0.3
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D(4dir):material:shader_parameter/switich")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [false, true, true, false, true, true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_agf3f"]
+_data = {
+"RESET": SubResource("Animation_l4rhc"),
+"hurt_blink": SubResource("Animation_bl0es")
+}
+
+[node name="SlimeEnemy" type="CharacterBody2D" groups=["enemy"]]
+z_index = 1
+y_sort_enabled = true
+position = Vector2(213, 380)
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -24)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_fvy41")
+
+[node name="AnimatedSprite2D(4dir)" parent="." instance=ExtResource("1_nhkli")]
+y_sort_enabled = true
+material = SubResource("ShaderMaterial_3524u")
+position = Vector2(0, 1)
+offset = Vector2(0, -6)
+
+[node name="OverlapCollision" type="Area2D" parent="."]
+z_index = 10
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("2_crmtk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="OverlapCollision"]
+position = Vector2(0, -20)
+shape = SubResource("CircleShape2D_wp8qe")
+debug_color = Color(0.831373, 0.368627, 0.380392, 0.419608)
+
+[node name="HitBox" parent="." instance=ExtResource("2_aih1y")]
+visible = false
+z_index = 1
+position = Vector2(0, -38)
+
+[node name="HurtBox" parent="." instance=ExtResource("3_bvyv2")]
+visible = false
+z_index = 1
+position = Vector2(0, -38)
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_left = -38.0
+offset_top = 8.0
+offset_right = 40.0
+offset_bottom = 13.0
+show_percentage = false
+metadata/_edit_use_anchors_ = true
+
+[node name="Components" parent="ProgressBar" node_paths=PackedStringArray("host") instance=ExtResource("17_512so")]
+host = NodePath("..")
+
+[node name="StatusBar" type="Node2D" parent="ProgressBar/Components/CurrentStates" index="0"]
+script = ExtResource("18_twi7e")
+
+[node name="Effect" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_agf3f")
+}
+
+[node name="Components" type="Node2D" parent="." node_paths=PackedStringArray("host")]
+script = ExtResource("3_dp2v8")
+host = NodePath("..")
+
+[node name="Tools" type="Node2D" parent="Components" node_paths=PackedStringArray("host")]
+script = ExtResource("5_75ld7")
+host = NodePath("../..")
+
+[node name="HealthSystem" type="Node2D" parent="Components/Tools"]
+script = ExtResource("6_10bkb")
+max_hp = 10
+
+[node name="CurrentStates" type="Node2D" parent="Components"]
+script = ExtResource("5_xakui")
+
+[node name="MoveNSlide" parent="Components/CurrentStates" instance=ExtResource("4_8qvim")]
+
+[node name="Update4DirWalkAnim" type="Node2D" parent="Components/CurrentStates"]
+script = ExtResource("6_7y5tb")
+
+[node name="NearPlayerNFollow" type="Node2D" parent="Components/CurrentStates" node_paths=PackedStringArray("state")]
+script = ExtResource("12_fpnfr")
+max_detect_range = 900
+state = [NodePath("../IdleMove"), NodePath("../../SpareStates/FollowPlayer")]
+
+[node name="IdleMove" type="Node2D" parent="Components/CurrentStates" node_paths=PackedStringArray("host")]
+script = ExtResource("11_nxjdn")
+host = NodePath("../../..")
+
+[node name="AttackPlayer" type="Node2D" parent="Components/CurrentStates"]
+script = ExtResource("12_nx3br")
+knock_back_power = 1200
+
+[node name="ConnectToHpDisplay" type="Node2D" parent="Components/CurrentStates" node_paths=PackedStringArray("self_hp_display")]
+script = ExtResource("15_5q4vc")
+self_hp_display = NodePath("../../../ProgressBar")
+
+[node name="AnimPlayer" type="Node2D" parent="Components/CurrentStates" node_paths=PackedStringArray("anim_player")]
+script = ExtResource("19_grk0r")
+anim_player = NodePath("../../../Effect")
+
+[node name="BeAttack" type="Node2D" parent="Components/CurrentStates"]
+script = ExtResource("17_y57nv")
+
+[node name="BeNormalHurt" type="Node2D" parent="Components/CurrentStates"]
+script = ExtResource("13_2u0nm")
+
+[node name="BeKnockBack" type="Node2D" parent="Components/CurrentStates" node_paths=PackedStringArray("aim_move_state")]
+z_index = 1
+y_sort_enabled = true
+script = ExtResource("14_fg5rg")
+aim_move_state = [NodePath("../../SpareStates/FollowPlayer"), NodePath("../IdleMove")]
+
+[node name="BeHurtAnim" type="Node2D" parent="Components/CurrentStates"]
+script = ExtResource("20_s38uq")
+
+[node name="KnockedBackAndZeroHpToDefeat" type="Node2D" parent="Components/CurrentStates"]
+script = ExtResource("16_6bldu")
+
+[node name="ImmuneAfterAttack" type="Node2D" parent="Components/CurrentStates"]
+script = ExtResource("22_mhtjs")
+immune_time = 0.3
+
+[node name="SpareStates" type="Node2D" parent="Components"]
+script = ExtResource("3_dp2v8")
+
+[node name="FollowPlayer" type="Node2D" parent="Components/SpareStates" node_paths=PackedStringArray("overlap_collision")]
+script = ExtResource("9_3bbv0")
+move_speed = 200.0
+overlap_collision = NodePath("../../../OverlapCollision")
+
+[editable path="ProgressBar/Components"]

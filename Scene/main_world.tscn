@@ -1,0 +1,42 @@
+[gd_scene load_steps=8 format=3 uid="uid://cttpsyk83hp1u"]
+
+[ext_resource type="Script" path="res://Scene/MouseDetect.gd" id="1_fdtbt"]
+[ext_resource type="PackedScene" uid="uid://7gqwuf8ot678" path="res://Scene/Tool/switch_scene.tscn" id="1_sf76n"]
+[ext_resource type="Script" path="res://Scene/PositionPrinter.gd" id="2_4mm4l"]
+[ext_resource type="Script" path="res://Scene/WindowTest.gd" id="2_l7n0x"]
+[ext_resource type="Script" path="res://Scene/TestNode.gd" id="3_yj4kc"]
+[ext_resource type="Texture2D" uid="uid://bfjl4ltmyrsf8" path="res://icon.svg" id="4_ur135"]
+[ext_resource type="Script" path="res://Scene/move_item.gd" id="5_kp6n4"]
+
+[node name="MainWorld" type="Node2D"]
+
+[node name="SwitchScene" parent="." instance=ExtResource("1_sf76n")]
+scene2 = "res://Scene/World2.tscn"
+
+[node name="WindowTest" type="Node" parent="."]
+script = ExtResource("2_l7n0x")
+
+[node name="MouseFunction" type="Node2D" parent="."]
+
+[node name="MouseLeftFunction" type="Node2D" parent="MouseFunction" node_paths=PackedStringArray("position_processor")]
+script = ExtResource("1_fdtbt")
+position_processor = NodePath("../PositionProcessor")
+
+[node name="PositionProcessor" type="Node2D" parent="MouseFunction"]
+script = ExtResource("2_4mm4l")
+
+[node name="TestNode2" type="Node2D" parent="."]
+script = ExtResource("3_yj4kc")
+
+[node name="move_item" type="Sprite2D" parent="."]
+position = Vector2(595, 307)
+scale = Vector2(0.396484, 0.396484)
+texture = ExtResource("4_ur135")
+script = ExtResource("5_kp6n4")
+
+[node name="Popup" type="Window" parent="."]
+initial_position = 2
+size = Vector2i(500, 500)
+visible = false
+always_on_top = true
+popup_window = true

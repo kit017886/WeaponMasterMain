@@ -1,0 +1,75 @@
+[gd_scene load_steps=6 format=3 uid="uid://bgk5d6e4248su"]
+
+[ext_resource type="Script" path="res://Scene/UI/ModifierWindow.gd" id="1_iin7p"]
+[ext_resource type="PackedScene" uid="uid://wk4abvm40dpr" path="res://Scene/Modifier/int_modifier.tscn" id="2_ikuxp"]
+[ext_resource type="PackedScene" uid="uid://bml4bdc5wcqbx" path="res://Scene/Modifier/vector_modifier.tscn" id="3_gitkv"]
+[ext_resource type="PackedScene" uid="uid://dd2y3jv16gxw5" path="res://Scene/Modifier/string_modifier.tscn" id="4_swtap"]
+[ext_resource type="PackedScene" uid="uid://bidyi8d5cpush" path="res://Scene/Modifier/bool_modifier.tscn" id="5_ogc68"]
+
+[node name="ModifierWindow" type="Window" groups=["modifier_window"]]
+handle_input_locally = false
+initial_position = 3
+size = Vector2i(600, 800)
+current_screen = 0
+script = ExtResource("1_iin7p")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/separation = 20
+
+[node name="Control" type="Control" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="ModifyNodeContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/ModifyNodeContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "修改節點"
+horizontal_alignment = 1
+
+[node name="ModifyNodeOption" type="OptionButton" parent="VBoxContainer/ModifyNodeContainer"]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(400, 600)
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="ModifierItems" type="VBoxContainer" parent="VBoxContainer/ScrollContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="IntModifier" parent="VBoxContainer/ScrollContainer/ModifierItems" instance=ExtResource("2_ikuxp")]
+layout_mode = 2
+
+[node name="VectorModifier" parent="VBoxContainer/ScrollContainer/ModifierItems" instance=ExtResource("3_gitkv")]
+layout_mode = 2
+
+[node name="StringModifier" parent="VBoxContainer/ScrollContainer/ModifierItems" instance=ExtResource("4_swtap")]
+layout_mode = 2
+
+[node name="BoolModifier" parent="VBoxContainer/ScrollContainer/ModifierItems" instance=ExtResource("5_ogc68")]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="GetData" type="Button" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+text = "獲取資料"
+
+[node name="EditData" type="Button" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "修改資料"
+
+[connection signal="close_requested" from="." to="." method="_on_close_requested"]
+[connection signal="item_selected" from="VBoxContainer/ModifyNodeContainer/ModifyNodeOption" to="." method="_on_modify_node_option_item_selected"]

@@ -1,0 +1,30 @@
+[gd_scene load_steps=2 format=3 uid="uid://bml4bdc5wcqbx"]
+
+[ext_resource type="PackedScene" uid="uid://cjhi8046g0u41" path="res://Scene/Modifier/modifier_button.tscn" id="1_dqop6"]
+
+[node name="VectorModifier" type="HBoxContainer"]
+
+[node name="Label" type="Label" parent="."]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "dddd"
+horizontal_alignment = 1
+
+[node name="Value1" type="SpinBox" parent="."]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+max_value = 1e+09
+step = 0.01
+alignment = 1
+
+[node name="Value2" type="SpinBox" parent="."]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+max_value = 1e+09
+step = 0.01
+alignment = 1
+
+[node name="ModifierButton" parent="." instance=ExtResource("1_dqop6")]
+layout_mode = 2

@@ -1,0 +1,122 @@
+[gd_scene load_steps=2 format=3 uid="uid://bgk5d6e4248su"]
+
+[ext_resource type="Script" path="res://Scene/UI/ModifierWindow.gd" id="1_iin7p"]
+
+[node name="ModifierWindow" type="Window"]
+initial_position = 3
+size = Vector2i(600, 800)
+current_screen = 0
+script = ExtResource("1_iin7p")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/separation = 20
+
+[node name="Control" type="Control" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="ModifyNodeContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/ModifyNodeContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "修改節點"
+horizontal_alignment = 1
+
+[node name="ModifyNodeOption" type="OptionButton" parent="VBoxContainer/ModifyNodeContainer"]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(400, 700)
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="ModifierItems" type="VBoxContainer" parent="VBoxContainer/ScrollContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="IntModifier" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/ModifierItems"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/ScrollContainer/ModifierItems/IntModifier"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "dddd"
+horizontal_alignment = 1
+
+[node name="SpinBox" type="SpinBox" parent="VBoxContainer/ScrollContainer/ModifierItems/IntModifier"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+max_value = 1e+09
+alignment = 1
+
+[node name="VectorModifier" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/ModifierItems"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/ScrollContainer/ModifierItems/VectorModifier"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "dddd"
+horizontal_alignment = 1
+
+[node name="SpinBox1" type="SpinBox" parent="VBoxContainer/ScrollContainer/ModifierItems/VectorModifier"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+max_value = 1e+09
+alignment = 1
+
+[node name="SpinBox2" type="SpinBox" parent="VBoxContainer/ScrollContainer/ModifierItems/VectorModifier"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+max_value = 1e+09
+alignment = 1
+
+[node name="StringModifier" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/ModifierItems"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/ScrollContainer/ModifierItems/StringModifier"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "dddd"
+horizontal_alignment = 1
+
+[node name="LineEdit" type="LineEdit" parent="VBoxContainer/ScrollContainer/ModifierItems/StringModifier"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="BoolModifier" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/ModifierItems"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/ScrollContainer/ModifierItems/BoolModifier"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "dddd"
+horizontal_alignment = 1
+
+[node name="CheckBox" type="CheckBox" parent="VBoxContainer/ScrollContainer/ModifierItems/BoolModifier"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="GetData" type="Button" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+text = "獲取資料"
+
+[node name="EditData" type="Button" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "修改資料"
+
+[connection signal="close_requested" from="." to="." method="_on_close_requested"]
+[connection signal="item_selected" from="VBoxContainer/ModifyNodeContainer/ModifyNodeOption" to="." method="_on_modify_node_option_item_selected"]

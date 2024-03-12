@@ -1,0 +1,20 @@
+[gd_scene load_steps=6 format=3 uid="uid://dhssf3o322gyh"]
+
+[ext_resource type="Script" path="res://Scene/Components.gd" id="1_xhks8"]
+[ext_resource type="PackedScene" uid="uid://qyj8v60e6amo" path="res://tools.tscn" id="2_eqitv"]
+[ext_resource type="Script" path="res://Scene/CurrentStates.gd" id="3_6eqs0"]
+[ext_resource type="PackedScene" uid="uid://cu6dkm4ukdqjq" path="res://Scene/spare_states.tscn" id="4_pb4ms"]
+[ext_resource type="Script" path="res://Scene/HostConnectVarMethod.gd" id="5_0kawb"]
+
+[node name="Components" type="Node2D"]
+script = ExtResource("1_xhks8")
+
+[node name="HostConnectVarMethod" type="Node2D" parent="."]
+script = ExtResource("5_0kawb")
+
+[node name="Tools" parent="." instance=ExtResource("2_eqitv")]
+
+[node name="CurrentStates" type="Node2D" parent="."]
+script = ExtResource("3_6eqs0")
+
+[node name="SpareStates" parent="." instance=ExtResource("4_pb4ms")]

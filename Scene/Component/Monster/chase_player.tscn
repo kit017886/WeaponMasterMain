@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bnrcjae7t02c7"]
+
+[ext_resource type="Script" path="res://Scene/Component/Monster/ChasePlayer.gd" id="1_0dk2t"]
+
+[node name="ChasePlayer" type="Node2D"]
+script = ExtResource("1_0dk2t")

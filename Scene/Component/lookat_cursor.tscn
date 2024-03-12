@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://bc12lo5w1tvtf"]
+
+[ext_resource type="Script" path="res://Scene/LookatCursor.gd" id="1_wf35k"]
+
+[node name="LookatCursor" type="Node2D" node_paths=PackedStringArray("host")]
+script = ExtResource("1_wf35k")
+host = NodePath("")

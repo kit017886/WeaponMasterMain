@@ -1,0 +1,179 @@
+[gd_scene load_steps=26 format=3 uid="uid://bjdy1jk4vnc11"]
+
+[ext_resource type="Texture2D" uid="uid://lb25vfuqc2wh" path="res://Image/Atk icon(big).png" id="1_v54dq"]
+[ext_resource type="Script" path="res://Scene/attack_area.gd" id="2_7mvq5"]
+[ext_resource type="Script" path="res://Scene/Components.gd" id="3_38pwg"]
+[ext_resource type="Script" path="res://Scene/HostConnectVarMethod.gd" id="4_k6a3a"]
+[ext_resource type="Script" path="res://Scene/Tools.gd" id="5_m7on1"]
+[ext_resource type="Script" path="res://Scene/HealthSystem.gd" id="6_6d71n"]
+[ext_resource type="Script" path="res://Scene/CurrentStates.gd" id="7_dvo1y"]
+[ext_resource type="Script" path="res://ConnetToWeaponSlot.gd" id="8_cu14y"]
+[ext_resource type="Script" path="res://Scene/UI/SetWeaponData.gd" id="8_n3rnp"]
+[ext_resource type="Script" path="res://Scene/SpendSp.gd" id="9_l4ixt"]
+[ext_resource type="Script" path="res://Scene/PlayPlayer.gd" id="10_r7ukw"]
+[ext_resource type="Script" path="res://Scene/Move_n_Slide.gd" id="11_fnx4y"]
+[ext_resource type="PackedScene" uid="uid://c1atbl0uskvhc" path="res://Scene/Component/player/player_8_dir_movement.tscn" id="12_gx64r"]
+[ext_resource type="PackedScene" uid="uid://bgw32l66jbqk0" path="res://Scene/Component/player/look_at_velocity.tscn" id="13_f0aq4"]
+[ext_resource type="Script" path="res://Scene/ImmuneAfterAttack.gd" id="14_m58kd"]
+[ext_resource type="Script" path="res://Scene/NormalAttack.gd" id="15_y0v4w"]
+[ext_resource type="Script" path="res://Scene/BeAttack.gd" id="16_3y1g2"]
+[ext_resource type="Script" path="res://Scene/BeKnockBack.gd" id="17_s0xbi"]
+[ext_resource type="Script" path="res://Scene/BeNormalHurt.gd" id="18_nf7va"]
+[ext_resource type="Script" path="res://Scene/BeHurtAnim.gd" id="19_rkiww"]
+[ext_resource type="Script" path="res://Scene/Shoot.gd" id="20_ncrln"]
+[ext_resource type="PackedScene" uid="uid://kwrxtoqdwgyy" path="res://Scene/bullet.tscn" id="21_2d87v"]
+
+[sub_resource type="Animation" id="Animation_l4rhc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape2D/Sprite2D/ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_bl0es"]
+resource_name = "hurt_blink"
+length = 0.5
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape2D/Sprite2D/ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, -1.49012e-07)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_agf3f"]
+_data = {
+"RESET": SubResource("Animation_l4rhc"),
+"hurt_blink": SubResource("Animation_bl0es")
+}
+
+[node name="Player" type="CharacterBody2D" groups=["player"]]
+z_index = 10
+position = Vector2(0, 4)
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(0, -4)
+polygon = PackedVector2Array(-43.5, -6.5, -24.5, -7.5, -17.5, -22.5, -7.5, -22.5, -1.5, -9.5, 39.5, -9.5, 45.5, 0.5, 38.5, 10.5, -1.5, 9.5, -6.5, 22.5, -16.5, 22.5, -23.5, 7.5, -43.5, 6.5)
+
+[node name="Sprite2D" type="Sprite2D" parent="CollisionShape2D"]
+clip_children = 2
+position = Vector2(1.5, 4.5)
+rotation = 0.785398
+scale = Vector2(6, 6)
+texture = ExtResource("1_v54dq")
+metadata/_edit_lock_ = true
+
+[node name="ColorRect" type="ColorRect" parent="CollisionShape2D/Sprite2D"]
+offset_left = -30.4056
+offset_top = -31.4663
+offset_right = 30.5944
+offset_bottom = 30.5337
+color = Color(1, 1, 1, 0)
+metadata/_edit_use_anchors_ = true
+
+[node name="PlayerHurtBox" type="Area2D" parent="."]
+position = Vector2(1.5, 0.5)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="PlayerHurtBox"]
+polygon = PackedVector2Array(-13.5, -26.5, -24, -14, -45, -12, -45, 3, -25, 4, -13.5, 19.5)
+
+[node name="HitBox" type="Area2D" parent="." node_paths=PackedStringArray("host")]
+position = Vector2(1.5, 0.5)
+script = ExtResource("2_7mvq5")
+host = NodePath("..")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HitBox"]
+position = Vector2(57.5, 2.5)
+polygon = PackedVector2Array(-2, -7, -18, -20, -64, -20, -64, 7, -19, 6)
+
+[node name="Effect" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_agf3f")
+}
+
+[node name="Components" type="Node2D" parent="." node_paths=PackedStringArray("host")]
+script = ExtResource("3_38pwg")
+host = NodePath("..")
+
+[node name="HostConnectVarMethod" type="Node2D" parent="Components"]
+script = ExtResource("4_k6a3a")
+
+[node name="Tools" type="Node2D" parent="Components"]
+script = ExtResource("5_m7on1")
+
+[node name="HealthSystem" type="Node2D" parent="Components/Tools"]
+script = ExtResource("6_6d71n")
+
+[node name="CurrentStates" type="Node2D" parent="Components"]
+script = ExtResource("7_dvo1y")
+
+[node name="SetWeaponData" type="Node2D" parent="Components/CurrentStates"]
+script = ExtResource("8_n3rnp")
+
+[node name="ConnectToWeaponSlot" type="Node2D" parent="Components/CurrentStates"]
+script = ExtResource("8_cu14y")
+
+[node name="SpendSp" type="Node2D" parent="Components/CurrentStates"]
+script = ExtResource("9_l4ixt")
+
+[node name="Timer" type="Timer" parent="Components/CurrentStates/SpendSp"]
+
+[node name="AnimPlayer" type="Node2D" parent="Components/CurrentStates" node_paths=PackedStringArray("anim_player")]
+script = ExtResource("10_r7ukw")
+anim_player = NodePath("../../../Effect")
+
+[node name="MoveNSlide" type="Node2D" parent="Components/CurrentStates"]
+script = ExtResource("11_fnx4y")
+
+[node name="Player8DirMovement" parent="Components/CurrentStates" node_paths=PackedStringArray("host") instance=ExtResource("12_gx64r")]
+host = NodePath("../../..")
+
+[node name="LookAtVelocity" parent="Components/CurrentStates" node_paths=PackedStringArray("host") instance=ExtResource("13_f0aq4")]
+host = NodePath("../../..")
+
+[node name="ImmuneAfterAttack" type="Node2D" parent="Components/CurrentStates"]
+script = ExtResource("14_m58kd")
+
+[node name="NormalAttack" type="Node2D" parent="Components/CurrentStates" node_paths=PackedStringArray("host")]
+script = ExtResource("15_y0v4w")
+knock_back_power = 1500
+host = NodePath("../../..")
+
+[node name="BeAttack" type="Node2D" parent="Components/CurrentStates"]
+script = ExtResource("16_3y1g2")
+
+[node name="BeKnockBack" type="Node2D" parent="Components/CurrentStates" node_paths=PackedStringArray("host")]
+script = ExtResource("17_s0xbi")
+friction = 80
+min_velocity = 50
+host = NodePath("../../..")
+
+[node name="BeNormalHurt" type="Node2D" parent="Components/CurrentStates"]
+script = ExtResource("18_nf7va")
+
+[node name="BeHurtAnim" type="Node2D" parent="Components/CurrentStates"]
+script = ExtResource("19_rkiww")
+
+[node name="Shoot" type="Node2D" parent="Components/CurrentStates"]
+script = ExtResource("20_ncrln")
+bullet = ExtResource("21_2d87v")
+
+[node name="SpareStates" type="Node2D" parent="Components"]
+script = ExtResource("3_38pwg")
+
+[connection signal="body_entered" from="HitBox" to="HitBox" method="_on_body_entered"]

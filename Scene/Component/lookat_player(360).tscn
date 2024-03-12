@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://b81myt4k52y24"]
+
+[ext_resource type="Script" path="res://Scene/LookatPlayer.gd" id="1_1r3o6"]
+
+[node name="LookatPlayer(360)" type="Node2D" node_paths=PackedStringArray("host")]
+script = ExtResource("1_1r3o6")
+host = NodePath("")

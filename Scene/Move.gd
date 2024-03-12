@@ -1,0 +1,3 @@
+extends UpdateComponent
+class_name VelocityChange
+

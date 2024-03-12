@@ -1,0 +1,63 @@
+[gd_scene load_steps=12 format=3 uid="uid://5v2unap7qt7"]
+
+[ext_resource type="Script" path="res://Scene/Components.gd" id="1_ery51"]
+[ext_resource type="Texture2D" uid="uid://dm2xmgtt7sqkm" path="res://Image/SpriteSheet1.png" id="1_yvqmr"]
+[ext_resource type="PackedScene" uid="uid://b6bobbvfg3utp" path="res://Scene/animation_player(4_dir).tscn" id="2_hqke8"]
+[ext_resource type="Script" path="res://UpdateTopDown4DirAnim.gd" id="2_o3jdj"]
+[ext_resource type="Script" path="res://Scene/Tools.gd" id="4_dv5r6"]
+[ext_resource type="Script" path="res://Scene/CurrentStates.gd" id="4_upqs0"]
+[ext_resource type="Script" path="res://Scene/Player8DirMovement2.gd" id="4_weq7o"]
+[ext_resource type="Script" path="res://Scene/HealthSystem.gd" id="5_ks6g8"]
+[ext_resource type="Script" path="res://Scene/HoldButtonToSpeedUp.gd" id="6_g8nmm"]
+[ext_resource type="Script" path="res://Scene/BeNormalHurt.gd" id="10_avaay"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uodr3"]
+size = Vector2(95, 29)
+
+[node name="TopDownPlayer" type="CharacterBody2D"]
+z_index = 1
+y_sort_enabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(6, 6)
+texture = ExtResource("1_yvqmr")
+offset = Vector2(0, -8)
+hframes = 4
+vframes = 7
+
+[node name="AnimationPlayer(4dir)" parent="." instance=ExtResource("2_hqke8")]
+
+[node name="Components" type="Node2D" parent="." node_paths=PackedStringArray("host")]
+script = ExtResource("1_ery51")
+host = NodePath("..")
+
+[node name="Tools" type="Node2D" parent="Components"]
+script = ExtResource("4_dv5r6")
+
+[node name="HealthSystem" type="Node2D" parent="Components/Tools"]
+script = ExtResource("5_ks6g8")
+max_hp = 5
+
+[node name="CurrentStates" type="Node2D" parent="Components"]
+script = ExtResource("4_upqs0")
+
+[node name="Update4DirWalkAnim" type="Node2D" parent="Components/CurrentStates"]
+script = ExtResource("2_o3jdj")
+
+[node name="Player8DirMovementNoFriction" type="Node2D" parent="Components/CurrentStates"]
+script = ExtResource("4_weq7o")
+speed = 600
+
+[node name="HoldButtonToSpeedUp" type="Node2D" parent="Components/CurrentStates"]
+script = ExtResource("6_g8nmm")
+speed_up_value = 200
+
+[node name="BeNormalHurt" type="Node2D" parent="Components/CurrentStates"]
+script = ExtResource("10_avaay")
+
+[node name="SpareStates" type="Node2D" parent="Components"]
+script = ExtResource("1_ery51")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, -14.5)
+shape = SubResource("RectangleShape2D_uodr3")

@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://wiycvvwxk4nt"]
+
+[ext_resource type="Script" path="res://Scene/Component/player/FollowMouseCursor.gd" id="1_0h50n"]
+
+[node name="FollowMouseCursor" type="Node2D" node_paths=PackedStringArray("host")]
+scale = Vector2(0.5, 0.5)
+script = ExtResource("1_0h50n")
+host = NodePath("")
+metadata/_edit_lock_ = true

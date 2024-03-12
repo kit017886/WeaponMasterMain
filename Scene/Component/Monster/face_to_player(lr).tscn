@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cg2eibr0yq37i"]
+
+[ext_resource type="Script" path="res://Scene/FacetoPlayer(LR).gd" id="1_73cxb"]
+
+[node name="FaceToPlayer(LR)" type="Node2D"]
+script = ExtResource("1_73cxb")

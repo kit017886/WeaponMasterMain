@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://cjhi8046g0u41"]
+
+[ext_resource type="Script" path="res://Scene/Modifier/ModifierButton.gd" id="1_j1w7g"]
+
+[node name="ModifierButton" type="Button"]
+custom_minimum_size = Vector2(80, 0)
+text = "修改"
+script = ExtResource("1_j1w7g")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

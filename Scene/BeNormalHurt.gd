@@ -9,4 +9,7 @@ func be_normal_hurt(value):
 	print_debug("be hurt")
 	var hp = get_var("hp")
 	hp = clamp(hp-value,0,get_var("max_hp"))
+	if hp <= 0:
+		set_var("can_be_attack",false)
 	set_var("hp",hp)
+

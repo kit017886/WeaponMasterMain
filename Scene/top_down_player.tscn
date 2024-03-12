@@ -7,7 +7,7 @@
 [ext_resource type="Script" path="res://Scene/Tools.gd" id="4_dv5r6"]
 [ext_resource type="Script" path="res://Scene/CurrentStates.gd" id="4_upqs0"]
 [ext_resource type="Script" path="res://Scene/Player8DirMovement2.gd" id="4_weq7o"]
-[ext_resource type="Script" path="res://Scene/HealthSystem.gd" id="5_ks6g8"]
+[ext_resource type="Script" path="res://Scene/WeaponHealthSystem.gd" id="5_ks6g8"]
 [ext_resource type="Script" path="res://Scene/HoldButtonToSpeedUp.gd" id="6_g8nmm"]
 [ext_resource type="Script" path="res://Scene/BeNormalHurt.gd" id="10_avaay"]
 

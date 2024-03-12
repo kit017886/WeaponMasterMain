@@ -7,6 +7,7 @@ func Enter_Tree():
 
 func _on_be_attack(atk,enemy_velocity,knock_back_power):
 	if get_var("can_be_attack"):
+		print_debug("be_attack")
 		host.emit_signal("be_knock_back",enemy_velocity,knock_back_power)
 		host.emit_signal("be_hurt",atk)
 		host.emit_signal("hurt_anim")

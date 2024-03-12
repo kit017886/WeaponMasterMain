@@ -8,7 +8,7 @@
 [ext_resource type="Script" path="res://Scene/Tools.gd" id="3_lsesh"]
 [ext_resource type="Script" path="res://Scene/CurrentStates.gd" id="3_tu6l4"]
 [ext_resource type="Script" path="res://UpdateTopDown4DirAnim.gd" id="4_57vs2"]
-[ext_resource type="Script" path="res://Scene/HealthSystem.gd" id="4_xn6gx"]
+[ext_resource type="Script" path="res://Scene/WeaponHealthSystem.gd" id="4_xn6gx"]
 [ext_resource type="Script" path="res://Scene/Move_n_Slide.gd" id="6_2yypl"]
 [ext_resource type="PackedScene" uid="uid://cu6dkm4ukdqjq" path="res://Scene/spare_states.tscn" id="6_w1lql"]
 [ext_resource type="Script" path="res://Scene/KnockBackPlayer.gd" id="7_s6nhe"]
